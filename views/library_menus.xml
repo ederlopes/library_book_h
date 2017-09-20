@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <!-- Menu Superior -->
+    <menuitem
+        id="library_book_Menu"
+        name="Biblioteca" />
+
+    <!-- Sub Menu Superior -->
+    <menuitem
+        id="library_book_sub_menu"
+        name="Cadastros"
+        parent="library_book_Menu"
+        sequence="5" />
+
+
+    <!-- Action para Editores -->
+    <act_window
+            id="action_all_library"
+            name="Bibliotecas"
+            res_model="library"
+            view_mode="tree,form"
+    />
+
+    <!-- Menu para Editores -->
+    <menuitem
+            id="library_sub_menu"
+            name="Bibliotecas"
+            action="action_all_library"
+            parent="library_book_sub_menu"
+            sequence="5" />
+
+</odoo>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <!-- Action para Livros -->
+    <act_window
+        id="action_library_book_all_books"
+        name="Livros"
+        res_model="library.book"
+        view_mode="tree,form,kanban,calendar"
+        domain="[('user_id', '=', context.get('uid'))]"
+    />
+
+    <menuitem
+        id="library_book_sub_menu_livros"
+        name="Livros"
+        action="action_library_book_all_books"
+        parent="library_book_sub_menu"
+        sequence="5" />
+
+    <act_window id="action_borrow_books"
+                multi="True"
+                key2="client_action_multi" name="Criar Biblioteca"
+                res_model="library" src_model="library.book"
+                view_mode="form" target="new" view_type="form"
+                context="{'default_livros_ids': active_ids}"/>
+
+</odoo>

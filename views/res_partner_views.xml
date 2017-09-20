@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="form_all_editors" model="ir.ui.view">
+        <field name="name">All Editors</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button type="object"
+                            name="open_commercial_entity"
+                            string="Open commercial partner"
+                            class="oe_highlight" />
+                    <button type="action"
+                            name="%(base.action_partner_category_form)d"
+                            string="Open partner categories" />
+                </header>
+                <group>
+                    <field name="name" />
+                    <field name="is_editor" />
+                    <field name="is_depends" />
+                    <field name="is_onchange" />
+                    <field name="user_id" string="Autor relacionado" />
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="tree_all_editors" model="ir.ui.view">
+        <field name="name">All Editors Tree</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="is_editor" />
+                <field name="user_id" string="Autor relacionado"/>
+            </tree>
+        </field>
+    </record>
+
+</odoo>

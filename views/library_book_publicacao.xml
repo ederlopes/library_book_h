@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="library_book_publicacao_form" model="ir.ui.view">
+        <field name="name">publicacoes.form</field>
+        <field name="model">library.book.publicacao</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                 <div class="oe_left oe_title">
+                    <label for="data_publicacao" />
+                    <h1>
+                        <field name="data_publicacao" />
+                    </h1>
+                </div>
+                <group>
+                    <field name="livros_id" />
+                    <field name="diretor" />
+                </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action para Livros -->
+    <act_window
+        id="action_library_book_all_publicacao"
+        name="Publicacoes"
+        res_model="library.book.publicacao"
+        view_mode="tree,form"
+    />
+
+    <menuitem
+        id="library_book_sub_menu_publicacao"
+        name="Publicacoes"
+        action="action_library_book_all_publicacao"
+        parent="library_book_sub_menu"
+        sequence="5" />
+
+</odoo>
+
+

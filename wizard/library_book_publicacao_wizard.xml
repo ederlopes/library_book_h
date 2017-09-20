@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="library_book_publicacao_wizard_form" model="ir.ui.view">
+        <field name="name">publicacoes.wizard.form</field>
+        <field name="model">library.book.publicacao.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <div class="oe_left oe_title">
+                    <label for="data_publicacao" />
+                    <h1>
+                        <field name="data_publicacao" />
+                    </h1>
+                </div>
+                <group>
+                    <field name="diretor" readonly="1" />
+                </group>
+                <field name="livros_ids" />
+
+                <footer>
+                    <button type='object' name="publicar_livros" string="Publicar!"
+                            class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+
+            </form>
+        </field>
+    </record>
+
+    <act_window id="action_publicar_livro"
+                multi="True"
+                key2="client_action_multi" name="Publicar Livros"
+                res_model="library.book.publicacao.wizard" src_model="library.book"
+                view_mode="form" target="new" view_type="form"
+                context="{'default_livros_ids': context.get('active_ids') }"/>
+
+    <menuitem id="menu_publicacoes_wizard"
+              parent="library_book_sub_menu"
+              action="action_publicar_livro"
+              sequence="20"
+    />
+
+</odoo>

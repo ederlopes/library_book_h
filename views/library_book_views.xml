@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+     <record id="library_book_livros_view_tree" model="ir.ui.view">
+        <field name="name">library.book.livros.view.tree</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <tree colors="red: state !='publicado'">
+                <field name="name"/>
+                <field name="state" invisible="1"/>
+                <field name="user_id"/>
+                <field name="biblioteca_id"/>
+                <field name="cost_price" widget='monetary' options="{'currency_field': 'currency_id'}" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="library_book_livros_view_form" model="ir.ui.view">
+        <field name="name">library.book.livros.view.form</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <form>
+                 <header>
+                     <field name="state" widget="statusbar"></field>
+                     <button type='object' groups="library_book.group_library_book_manager" name="action_available" string="Set Available" states="novo" />
+                     <button type='object' name="action_publicar" string="Publicar!" states="confirmado" />
+                 </header>
+                <sheet>
+                <div class="oe_left oe_title">
+                    <label for="name" />
+                    <h1>
+                        <field name="name" />
+                    </h1>
+                </div>
+
+                <group>
+                    <field name="user_id"/>
+                </group>
+                <group>
+                    <field name="data_lancamento"/>
+                </group>
+
+                <group>
+                    <field name="partner_ids" colspan="2"  nolabel="1">
+                        <tree editable="bottom">
+                            <field name="name" />
+                            <field name="email" />
+                        </tree>
+                    </field>
+                    <field name="date_release"/>
+                    <field name="age_days"/>
+                    <field name="biblioteca_id"/>
+                </group>
+
+                <field name="attachment_ids" widget="many2many_binary" string="Attach a file"/>
+
+                </sheet>
+
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+
+            </form>
+        </field>
+     </record>
+
+    <record id="library_book_livros_view_search" model="ir.ui.view">
+        <field name="name">library.book.livros.view.search</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="age_days"/>
+                <field name="currency_id"/>
+                <field name="partner_ids"/>
+                <field name="create_uid"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="library_book_livros_view_kanban" model="ir.ui.view">
+        <field name="name">library.book.livros.view.kanban</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" create="0" >
+                <!-- Campos que serão usados no template -->
+                <field name="state" />
+                <field name="name" />
+                <field name="user_id" />
+                <field name="data_lancamento" />
+                <field name="message_ids" />
+                <field name="message_follower_ids" />
+
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_card">
+
+                            <div class="o_kanban_card_header_title">
+                                <a type="open">
+                                    <div class="o_primary"><field name="name"/></div>
+                                    Autor: <field name="user_id" />
+                                </a>
+
+                                <img t-att-src="kanban_image('res.users', 'image_small', record.user_id.raw_value)" t-att-title="record.user_id.value" width="24" height="24" class="oe_kanban_avatar"/>
+                                <!--<img t-att-src='_s + "/base/static/src/img/truck.png"' class="o_kanban_image oe_kanban_avatar_smallbox"/> -->
+                            </div>
+
+                            <!-- Campos apenas com field se nao existe, nao exibe
+                                e nao preciso explicitar a declaracao em cima
+                            -->
+                            <field name="biblioteca_id" />
+                            <br  />
+                            <!-- Campos com t-esc recebem um pre tratamento do banco
+                              e deve ser declarado antes do template para ser utilizado
+                              -->
+                            <t t-esc="record.data_lancamento.raw_value" />
+
+
+                            <br />
+                            <span title='Messages'><i class='fa fa-comments'/><t t-esc="record.message_ids.raw_value.length"/></span>
+                            <span title='Followers'><i class='fa fa-users'/><t t-esc="record.message_follower_ids.raw_value.length"/></span>
+                            <div class="oe_kanban_details"></div>
+
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+
+    <record id="library_book_livros_view_calendar" model="ir.ui.view">
+        <field name="name">library.book.livros.view.calendar</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <calendar date_start="data_lancamento" date_stop="date_release" color="biblioteca_id"
+                      mode="month">
+                 <!--quick_add="False"-->
+                <field name="name" />
+                <field name="user_id" />
+            </calendar>
+        </field>
+    </record>
+
+</odoo>
